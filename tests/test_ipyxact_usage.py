@@ -1,8 +1,8 @@
 import xml.etree.ElementTree as ET
-import reg_degeneration
+from ipyxact.ipyxact import Component
 
 
 def test_read_uart_16550():
-    tree = ET.parse('uart_16550.xml')
-    root = tree.getroot()
-    print(root)
+    uart_16550 = Component()
+    uart_16550.load('uart_16550.xml')
+    print(uart_16550.name)
