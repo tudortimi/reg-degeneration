@@ -7,6 +7,11 @@ def get_access(ipyxact_field):
     return 'RW'
 
 
+def get_volatility(ipyxact_field):
+    # TODO Implement Handling of volatility
+    return False
+
+
 def add_uvm_reg_field(reg, ipyxact_field):
     field = uvm_reg_field(ipyxact_field.name)
     setattr(reg, ipyxact_field.name, field)
@@ -14,7 +19,7 @@ def add_uvm_reg_field(reg, ipyxact_field):
                     ipyxact_field.bitWidth,
                     ipyxact_field.bitOffset,
                     get_access(ipyxact_field),
-                    False,  # TODO Handle volatility
+                    get_volatility(ipyxact_field),
                     ipyxact_field.resets.reset.value)
 
 
