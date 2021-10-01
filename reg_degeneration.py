@@ -1,4 +1,4 @@
-from pyuvm import uvm_reg_field
+from pyuvm import uvm_reg_field, uvm_reg
 
 
 def get_access(ipyxact_field):
@@ -21,6 +21,12 @@ def add_uvm_reg_field(reg, ipyxact_field):
                     get_access(ipyxact_field),
                     get_volatility(ipyxact_field),
                     ipyxact_field.resets.reset.value)
+
+
+def add_uvm_reg_to_block(block, ipyxact_reg):
+    reg = uvm_reg(ipyxact_reg.name)
+    setattr(block, ipyxact_reg.name, reg)
+    reg.configure(block)
 
 
 def main():
