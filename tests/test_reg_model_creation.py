@@ -67,3 +67,6 @@ def test_convert_address_block():
     assert len(reg_block.get_registers()) == 2
     assert reg_block.get_registers()[0].get_name() == 'REG0'
     assert reg_block.get_registers()[1].get_name() == 'REG1'
+
+    assert reg_block.default_map.get_reg_by_offset(0) == reg_block.REG0
+    assert reg_block.default_map.get_reg_by_offset(128) == reg_block.REG1

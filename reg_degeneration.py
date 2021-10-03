@@ -35,8 +35,8 @@ def new_uvm_reg_block(ipyxact_address_block):
     default_map = uvm_reg_map('default_map')
     setattr(block, 'default_map', default_map)
     for ipyxact_reg in ipyxact_address_block.register:
-        add_uvm_reg_to_block(block, ipyxact_reg)
-        # TODO Add reg to map
+        reg = add_uvm_reg_to_block(block, ipyxact_reg)
+        default_map.add_reg(reg, ipyxact_reg.addressOffset)
         # TODO Add fields to reg
     return block
 
