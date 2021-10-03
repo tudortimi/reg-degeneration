@@ -35,6 +35,7 @@ def test_add_uvm_reg_to_block():
 
     reg = Object()
     reg.name = 'REG'
+    reg.field = []
 
     added_reg = reg_degeneration.add_uvm_reg_to_block(block, reg)
 
@@ -44,6 +45,34 @@ def test_add_uvm_reg_to_block():
     assert added_reg == block.REG
 
 
+def test_add_uvm_reg_to_block_including_fields():
+    block = uvm_reg_block()
+
+    reg = Object()
+    reg.name = 'REG'
+    reg.field = []
+    reg.field.append(Object())
+    reg.field[0].name = 'FIELD0'
+    reg.field[0].bitWidth = 1
+    reg.field[0].bitOffset = 0
+    reg.field[0].access = 'read-write'
+    reg.field[0].resets = Object()
+    reg.field[0].resets.reset = Object()
+    reg.field[0].resets.reset.value = 1
+    reg.field.append(Object())
+    reg.field[1].name = 'FIELD1'
+    reg.field[1].bitWidth = 1
+    reg.field[1].bitOffset = 0
+    reg.field[1].access = 'read-write'
+    reg.field[1].resets = Object()
+    reg.field[1].resets.reset = Object()
+    reg.field[1].resets.reset.value = 1
+
+    added_reg = reg_degeneration.add_uvm_reg_to_block(block, reg)
+
+    assert len(block.REG.get_fields()) == 2
+
+
 def test_convert_address_block():
     address_block = Object()
     address_block.register = []
@@ -51,10 +80,12 @@ def test_convert_address_block():
     reg0 = Object()
     reg0.name = 'REG0'
     reg0.addressOffset = 0
+    reg0.field = []
     address_block.register.append(reg0)
     reg1 = Object()
     reg1.name = 'REG1'
     reg1.addressOffset = 128
+    reg1.field = []
     address_block.register.append(reg1)
 
     reg_block = reg_degeneration.new_uvm_reg_block(address_block)

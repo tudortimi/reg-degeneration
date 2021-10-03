@@ -27,6 +27,8 @@ def add_uvm_reg_to_block(block, ipyxact_reg):
     reg = uvm_reg(ipyxact_reg.name)
     setattr(block, ipyxact_reg.name, reg)
     reg.configure(block)
+    for field in ipyxact_reg.field:
+        add_uvm_reg_field(reg, field)
     return reg
 
 
@@ -37,7 +39,6 @@ def new_uvm_reg_block(ipyxact_address_block):
     for ipyxact_reg in ipyxact_address_block.register:
         reg = add_uvm_reg_to_block(block, ipyxact_reg)
         default_map.add_reg(reg, ipyxact_reg.addressOffset)
-        # TODO Add fields to reg
     return block
 
 
