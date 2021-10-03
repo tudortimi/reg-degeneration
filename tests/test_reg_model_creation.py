@@ -6,17 +6,21 @@ class Object:
     pass
 
 
-def test_add_uvm_reg_field():
-    reg = uvm_reg('REG')
-
+def new_ipyxact_reg_field(name, offset, width, reset=0):
     field = Object()
-    field.name = 'FIELD'
-    field.bitOffset = 8
-    field.bitWidth = 2
+    field.name = name
+    field.bitOffset = offset
+    field.bitWidth = width
     field.access = 'read-write'
     field.resets = Object()
     field.resets.reset = Object()
-    field.resets.reset.value = 1
+    field.resets.reset.value = reset
+    return field
+
+
+def test_add_uvm_reg_field():
+    reg = uvm_reg('REG')
+    field = new_ipyxact_reg_field('FIELD', 8, 2, 1)
 
     reg_degeneration.add_uvm_reg_field(reg, field)
 
@@ -51,22 +55,8 @@ def test_add_uvm_reg_to_block_including_fields():
     reg = Object()
     reg.name = 'REG'
     reg.field = []
-    reg.field.append(Object())
-    reg.field[0].name = 'FIELD0'
-    reg.field[0].bitWidth = 1
-    reg.field[0].bitOffset = 0
-    reg.field[0].access = 'read-write'
-    reg.field[0].resets = Object()
-    reg.field[0].resets.reset = Object()
-    reg.field[0].resets.reset.value = 1
-    reg.field.append(Object())
-    reg.field[1].name = 'FIELD1'
-    reg.field[1].bitWidth = 1
-    reg.field[1].bitOffset = 0
-    reg.field[1].access = 'read-write'
-    reg.field[1].resets = Object()
-    reg.field[1].resets.reset = Object()
-    reg.field[1].resets.reset.value = 1
+    reg.field.append(new_ipyxact_reg_field('FIELD0', 1, 0))
+    reg.field.append(new_ipyxact_reg_field('FIELD1', 1, 1))
 
     added_reg = reg_degeneration.add_uvm_reg_to_block(block, reg)
 
