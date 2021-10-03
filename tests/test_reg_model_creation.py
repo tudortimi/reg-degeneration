@@ -36,11 +36,12 @@ def test_add_uvm_reg_to_block():
     reg = Object()
     reg.name = 'REG'
 
-    reg_degeneration.add_uvm_reg_to_block(block, reg)
+    added_reg = reg_degeneration.add_uvm_reg_to_block(block, reg)
 
     assert block.REG
     assert block.REG.get_name() == 'REG'
     assert block.get_registers() == [block.REG]
+    assert added_reg == block.REG
 
 
 def test_convert_address_block():

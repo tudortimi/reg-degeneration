@@ -27,6 +27,7 @@ def add_uvm_reg_to_block(block, ipyxact_reg):
     reg = uvm_reg(ipyxact_reg.name)
     setattr(block, ipyxact_reg.name, reg)
     reg.configure(block)
+    return reg
 
 
 def new_uvm_reg_block(ipyxact_address_block):
