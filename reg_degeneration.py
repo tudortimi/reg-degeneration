@@ -1,3 +1,4 @@
+import argparse
 from pyuvm import uvm_reg_field, uvm_reg, uvm_reg_block, uvm_reg_map
 
 
@@ -43,4 +44,7 @@ def new_uvm_reg_block(ipyxact_address_block):
 
 
 def main():
-    print('Degenerating regs')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('ipxact', metavar='IP-XACT-FILE', type=argparse.FileType())
+    args = parser.parse_args()
+    print(f'Degenerating regs from {args.ipxact}')
