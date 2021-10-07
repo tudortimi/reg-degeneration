@@ -44,6 +44,17 @@ def new_uvm_reg_block(ipyxact_address_block):
     return block
 
 
+# TODO Replace with 'reg_block.print()', once implemented in 'pyuvm'
+def print_reg_block(reg_block):
+    print(f'reg_block: {reg_block.get_name()}')
+    for reg in reg_block.get_registers():
+        print(f'  reg: {reg.get_name()}')
+        for field in reg.get_fields():
+            lower = field.get_lsb_pos()
+            upper = lower + field.get_n_bits() - 1
+            print(f'    field: {field.get_name()} [{upper}:{lower}]')
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('ipxact', metavar='IP-XACT-FILE', type=argparse.FileType())
@@ -60,3 +71,7 @@ def main():
     assert len(memory_map.addressBlock) == 1
     address_block = memory_map.addressBlock[0]
     print(f'Handling address block "{address_block.name}" of memory map "{memory_map.name}"')
+
+    reg_block = new_uvm_reg_block(address_block)
+    print("Built the following 'uvm_reg_block':")
+    print_reg_block(reg_block)
