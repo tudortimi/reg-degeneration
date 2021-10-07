@@ -35,7 +35,8 @@ def add_uvm_reg_to_block(block, ipyxact_reg):
 
 
 def new_uvm_reg_block(ipyxact_address_block):
-    block = uvm_reg_block()
+    # TODO Handle reg block name
+    block = uvm_reg_block('regs')
     default_map = uvm_reg_map('default_map')
     setattr(block, 'default_map', default_map)
     for ipyxact_reg in ipyxact_address_block.register:
