@@ -1,4 +1,5 @@
 import argparse
+from ipyxact.ipyxact import Component
 from pyuvm import uvm_reg_field, uvm_reg, uvm_reg_block, uvm_reg_map
 
 
@@ -47,4 +48,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('ipxact', metavar='IP-XACT-FILE', type=argparse.FileType())
     args = parser.parse_args()
-    print(f'Degenerating regs from {args.ipxact}')
+    print(f'Degenerating regs from {args.ipxact.name}')
+    component = Component()
+    component.load(args.ipxact.name)
+    print(f'Component: {component.name}')
