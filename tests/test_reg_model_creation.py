@@ -81,6 +81,7 @@ def test_convert_address_block():
     reg_block = reg_degeneration.new_uvm_reg_block(address_block)
 
     assert reg_block
+    assert reg_block.get_name() != ''
 
     assert reg_block.default_map
     assert reg_block.default_map.get_name() == 'default_map'
