@@ -49,6 +49,14 @@ def main():
     parser.add_argument('ipxact', metavar='IP-XACT-FILE', type=argparse.FileType())
     args = parser.parse_args()
     print(f'Degenerating regs from {args.ipxact.name}')
+
     component = Component()
     component.load(args.ipxact.name)
     print(f'Component: {component.name}')
+
+    assert len(component.memoryMaps.memoryMap) == 1
+    memory_map = component.memoryMaps.memoryMap[0]
+    assert memory_map.addressBlock
+    assert len(memory_map.addressBlock) == 1
+    address_block = memory_map.addressBlock[0]
+    print(f'Handling address block "{address_block.name}" of memory map "{memory_map.name}"')
