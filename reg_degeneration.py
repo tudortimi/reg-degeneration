@@ -50,7 +50,8 @@ def print_reg_block(reg_block):
     print(f'reg_block: {reg_block.get_name()}')
     for reg in reg_block.get_registers():
         print(f'  reg: {reg.get_name()}')
-        for field in reg.get_fields():
+        #for field in reg.get_fields()[::-1]:
+        for field in reversed(reg.get_fields()):
             lower = field.get_lsb_pos()
             upper = lower + field.get_n_bits() - 1
             print(f'    field: {field.get_name()} [{upper}:{lower}]')
